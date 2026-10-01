@@ -1,0 +1,29 @@
+# EXTRAIT FIDÈLE de SKOS Core (https://www.w3.org/TR/skos-reference/), recommandation W3C 2009-08-18.
+# IRI et types repris à l'identique ; seuls les termes utilisés par ce dépôt sont présents.
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<http://www.w3.org/2004/02/skos/core> a owl:Ontology ;
+    rdfs:label "SKOS Vocabulary"@en ;
+    dcterms:source <https://www.w3.org/2009/08/skos-reference/skos.rdf> ;
+    owl:versionInfo "W3C Recommendation 2009-08-18 (extract)" .
+
+skos:Concept a owl:Class ; rdfs:label "Concept"@en .
+skos:ConceptScheme a owl:Class ; rdfs:label "Concept Scheme"@en .
+
+skos:inScheme a owl:ObjectProperty ; rdfs:label "is in scheme"@en ; rdfs:range skos:ConceptScheme .
+skos:prefLabel a owl:AnnotationProperty ; rdfs:label "preferred label"@en ; rdfs:subPropertyOf rdfs:label .
+skos:altLabel a owl:AnnotationProperty ; rdfs:label "alternative label"@en ; rdfs:subPropertyOf rdfs:label .
+skos:definition a owl:AnnotationProperty ; rdfs:label "definition"@en ; rdfs:subPropertyOf skos:note .
+skos:example a owl:AnnotationProperty ; rdfs:label "example"@en ; rdfs:subPropertyOf skos:note .
+skos:note a owl:AnnotationProperty ; rdfs:label "note"@en .
+
+skos:semanticRelation a owl:ObjectProperty ; rdfs:label "is in semantic relation with"@en .
+skos:mappingRelation a owl:ObjectProperty ; rdfs:label "is in mapping relation with"@en ; rdfs:subPropertyOf skos:semanticRelation .
+skos:closeMatch a owl:ObjectProperty ; rdfs:label "has close match"@en ; rdfs:subPropertyOf skos:mappingRelation .
+skos:exactMatch a owl:ObjectProperty ; rdfs:label "has exact match"@en ; rdfs:subPropertyOf skos:closeMatch .
+skos:broadMatch a owl:ObjectProperty ; rdfs:label "has broader match"@en ; rdfs:subPropertyOf skos:mappingRelation .
+skos:narrowMatch a owl:ObjectProperty ; rdfs:label "has narrower match"@en ; rdfs:subPropertyOf skos:mappingRelation .
+skos:relatedMatch a owl:ObjectProperty ; rdfs:label "has related match"@en ; rdfs:subPropertyOf skos:mappingRelation .

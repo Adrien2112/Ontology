@@ -1,0 +1,10 @@
+# Garde-fou local indépendant de l'éditeur : même commande que la CI et que le hook Stop des agents.
+repos:
+  - repo: local
+    hooks:
+      - id: onto-check
+        name: onto check (garde-fous ontologiques)
+        entry: scripts/onto check
+        language: system
+        pass_filenames: false
+        always_run: true

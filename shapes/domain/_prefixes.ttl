@@ -1,0 +1,10 @@
+# Déclarations de préfixes partagées par les requêtes SHACL-SPARQL des invariants de domaine.
+@prefix inv:   <https://adrien2112.github.io/ontology/invariants#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+inv: sh:declare [
+    sh:prefix "orga" ; sh:namespace "https://adrien2112.github.io/ontology/organisation#"^^xsd:anyURI ] , [
+    sh:prefix "fleet" ; sh:namespace "https://adrien2112.github.io/ontology/parc#"^^xsd:anyURI ] , [
+    sh:prefix "mon" ; sh:namespace "https://adrien2112.github.io/ontology/supervision#"^^xsd:anyURI ] , [
+    sh:prefix "rdfs" ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ] .

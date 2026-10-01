@@ -1,0 +1,8 @@
+# Équipement sans site d'installation.
+@prefix d:     <https://adrien2112.github.io/data/> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix mon:   <https://adrien2112.github.io/ontology/supervision#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+d:pc-1 a fleet:PosteFixe ; fleet:numeroSerie "PF-000001" .

@@ -1,0 +1,61 @@
+# Invariants du contexte « Parc ».
+@prefix inv:   <https://adrien2112.github.io/ontology/invariants#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix ddd:   <https://adrien2112.github.io/ontology/ddd#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+
+inv:NumeroSerieObligatoire a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Tout équipement a exactement un numéro de série au format constructeur (majuscules, chiffres, tirets ; 6 caractères minimum)."@fr ;
+    ddd:constrains fleet:Equipement ;
+    sh:targetClass fleet:Equipement ;
+    sh:property [
+        sh:path fleet:numeroSerie ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:pattern "^[A-Z0-9][A-Z0-9-]{5,}$" ;
+        sh:message "Numéro de série manquant, multiple ou mal formé (attendu : ^[A-Z0-9][A-Z0-9-]{5,}$)."@fr ] .
+
+inv:NumeroSerieUnique a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Deux équipements distincts ne partagent jamais le même numéro de série."@fr ;
+    ddd:constrains fleet:Equipement ;
+    sh:targetClass fleet:Equipement ;
+    sh:sparql [
+        sh:message "Numéro de série {?value} partagé avec un autre équipement."@fr ;
+        sh:prefixes inv: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this fleet:numeroSerie ?value .
+                ?other fleet:numeroSerie ?value .
+                FILTER (?other != $this)
+            }""" ] .
+
+inv:EquipementInstalleSurUnSite a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Tout équipement est installé sur exactement un site connu."@fr ;
+    ddd:constrains fleet:Equipement ;
+    sh:targetClass fleet:Equipement ;
+    sh:property [
+        sh:path fleet:installeSur ; sh:minCount 1 ; sh:maxCount 1 ; sh:class orga:Site ;
+        sh:message "Un équipement est installé sur exactement un site (orga:Site)."@fr ] .
+
+inv:EquipementDeTypeConcret a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Un équipement est toujours d'un type concret (poste fixe, portable, terminal d'atelier, station RFID)."@fr ;
+    ddd:constrains fleet:Equipement ;
+    sh:targetClass fleet:Equipement ;
+    sh:sparql [
+        sh:message "Équipement sans type concret : utiliser une sous-classe de fleet:Equipement."@fr ;
+        sh:prefixes inv: ;
+        sh:select """
+            SELECT $this WHERE {
+                FILTER NOT EXISTS { $this a ?c . ?c rdfs:subClassOf fleet:Equipement . }
+            }""" ] .
+
+inv:StationRFIDSurSiteCompatible a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Une station RFID n'est installée que dans une blanchisserie ou un entrepôt, seuls sites où les vêtements pucés transitent."@fr ;
+    ddd:constrains fleet:StationRFID ;
+    sh:targetClass fleet:StationRFID ;
+    sh:property [
+        sh:path ( fleet:installeSur orga:typeDeSite ) ;
+        sh:in ( orga:Blanchisserie orga:Entrepot ) ;
+        sh:message "Une station RFID doit être installée sur un site de type blanchisserie ou entrepôt."@fr ] .

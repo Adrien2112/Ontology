@@ -1,0 +1,25 @@
+# Amendement AMD-0002 — écrit par `onto amend`, ne pas éditer à la main.
+# Le changement ontologique est permis mais doit rester l'exception.
+@prefix amd: <https://adrien2112.github.io/ontology/amendments/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix repo: <https://adrien2112.github.io/ontology/repo#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+amd:AMD-0002
+    a repo:Amendment ;
+    dcterms:created "2026-10-01T09:14:38+00:00"^^xsd:dateTime ;
+    dcterms:identifier "AMD-0002" ;
+    repo:alternativesConsidered "Ces fichiers n'existaient pas lors du verrou initial (AMD-0001). Le faux positif a été constaté en conditions réelles : il bloque l'écriture de documentation qui cite la procédure d'approbation. Aucun contournement acceptable sans modifier guard.py." ;
+    repo:approvedBy "Adrien2112 — accord donné dans la session Claude Code (2026-10-01), enregistré par l agent" ;
+    repo:author "claude-code" ;
+    repo:covers ".claude/settings.json" ,
+        ".cursor/hooks.json" ,
+        ".github/**" ,
+        ".pre-commit-config.yaml" ,
+        "ontorepo.toml" ,
+        "scripts/onto" ,
+        "src/ontorepo/**" ,
+        "src/ontorepo/guard.py" ;
+    repo:justification "Achever l'amorçage : fichiers d'intégration agents (hooks Claude Code et Cursor, MCP, CI, pre-commit, lanceur scripts/onto) ; corriger un faux positif du garde-fou shell (commande interdite citée dans le corps d'un heredoc) ; protéger tout l'outillage src/ontorepo au niveau N2." ;
+    repo:level repo:N3 ;
+    repo:status repo:Applied .

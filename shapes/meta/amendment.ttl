@@ -1,0 +1,35 @@
+# Règles de forme des amendements — niveau N3.
+# Un changement de l'ontologie est permis, mais il doit être justifié, borné et (selon le niveau) approuvé.
+@prefix msh:     <https://adrien2112.github.io/ontology/meta-shapes#> .
+@prefix repo:    <https://adrien2112.github.io/ontology/repo#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+msh: sh:declare [
+    sh:prefix "repo" ; sh:namespace "https://adrien2112.github.io/ontology/repo#"^^xsd:anyURI ] .
+
+msh:Amendement a sh:NodeShape ;
+    sh:targetClass repo:Amendment ;
+    sh:property [
+        sh:path dcterms:identifier ; sh:minCount 1 ; sh:maxCount 1 ; sh:pattern "^AMD-[0-9]{4}$" ] , [
+        sh:path repo:level ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( repo:N1 repo:N2 repo:N3 ) ] , [
+        sh:path repo:status ; sh:minCount 1 ; sh:maxCount 1 ; sh:in ( repo:Open repo:Approved repo:Applied repo:Rejected ) ] , [
+        sh:path repo:covers ; sh:minCount 1 ;
+        sh:message "Un amendement liste les fichiers qu'il autorise à modifier (repo:covers)."@fr ] , [
+        sh:path repo:justification ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 20 ;
+        sh:message "Justification obligatoire (20 caractères minimum)."@fr ] , [
+        sh:path repo:alternativesConsidered ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 20 ;
+        sh:message "Expliquer pourquoi les termes et règles existants ne suffisent pas (20 caractères minimum)."@fr ] , [
+        sh:path repo:author ; sh:minCount 1 ; sh:maxCount 1 ] , [
+        sh:path dcterms:created ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ;
+    sh:sparql [
+        sh:message "Un amendement N2/N3 approuvé ou appliqué doit porter repo:approvedBy (approbation humaine)."@fr ;
+        sh:prefixes msh: ;
+        sh:select """
+            SELECT $this WHERE {
+                $this repo:level ?lvl ; repo:status ?st .
+                FILTER (?lvl IN (repo:N2, repo:N3) && ?st IN (repo:Approved, repo:Applied))
+                FILTER NOT EXISTS { $this repo:approvedBy ?who }
+            }""" ] .

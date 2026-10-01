@@ -1,0 +1,18 @@
+# Invariants du contexte « Organisation » — niveau N1 (ajout) / N2 (modification, relâchement).
+@prefix inv:   <https://adrien2112.github.io/ontology/invariants#> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix ddd:   <https://adrien2112.github.io/ontology/ddd#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+
+inv:SiteComplet a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Un site a exactement un nom non vide et exactement un type de site."@fr ;
+    ddd:constrains orga:Site ;
+    sh:targetClass orga:Site ;
+    sh:property [
+        sh:path orga:nom ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1 ;
+        sh:message "Un site a exactement un nom."@fr ] , [
+        sh:path orga:typeDeSite ; sh:minCount 1 ; sh:maxCount 1 ; sh:class orga:TypeDeSite ;
+        sh:message "Un site a exactement un type (orga:Blanchisserie, orga:AtelierConfection, orga:Entrepot, orga:Siege)."@fr ] .

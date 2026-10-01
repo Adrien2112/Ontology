@@ -1,0 +1,11 @@
+# Les zones protégées exigent la revue du propriétaire (complète la gouvernance par amendements).
+/ontology/          @Adrien2112
+/shapes/            @Adrien2112
+/governance/        @Adrien2112
+/ontorepo.toml      @Adrien2112
+/src/ontorepo/guard.py  @Adrien2112
+/src/ontorepo/hooks/    @Adrien2112
+/scripts/onto       @Adrien2112
+/.claude/           @Adrien2112
+/.cursor/           @Adrien2112
+/.github/           @Adrien2112

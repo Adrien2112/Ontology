@@ -1,0 +1,25 @@
+# Manifeste des ontologies externes de référence — niveau N3.
+# Tout terme d'une ontologie de domaine doit être relié (subClassOf / subPropertyOf / skos:*Match)
+# à un terme déclaré dans l'une de ces ontologies.
+@prefix ddd:  <https://adrien2112.github.io/ontology/ddd#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://www.w3.org/ns/sosa/> a ddd:ExternalOntology ;
+    rdfs:label "SOSA (W3C Sensor, Observation, Sample, Actuator)"@fr ;
+    ddd:namespaceIri "http://www.w3.org/ns/sosa/" .
+
+<http://www.w3.org/ns/prov-o#> a ddd:ExternalOntology ;
+    rdfs:label "PROV-O (W3C Provenance)"@fr ;
+    ddd:namespaceIri "http://www.w3.org/ns/prov#" .
+
+<http://www.w3.org/ns/org#> a ddd:ExternalOntology ;
+    rdfs:label "ORG (W3C Organization)"@fr ;
+    ddd:namespaceIri "http://www.w3.org/ns/org#" .
+
+<http://www.w3.org/2004/02/skos/core> a ddd:ExternalOntology ;
+    rdfs:label "SKOS"@fr ;
+    ddd:namespaceIri "http://www.w3.org/2004/02/skos/core#" .
+
+<http://purl.org/dc/terms/> a ddd:ExternalOntology ;
+    rdfs:label "DCMI Metadata Terms"@fr ;
+    ddd:namespaceIri "http://purl.org/dc/terms/" .

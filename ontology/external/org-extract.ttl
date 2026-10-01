@@ -1,0 +1,47 @@
+# EXTRAIT FIDÈLE de la W3C Organization Ontology (https://www.w3.org/TR/vocab-org/).
+# Les IRI, types et hiérarchies sont repris à l'identique de la recommandation W3C du 16/01/2014.
+# Seuls les termes utilisés par ce dépôt sont présents. `onto external verify` compare cet
+# extrait au fichier amont quand le réseau le permet (w3.org était inaccessible lors du vendoring).
+@prefix org:     <http://www.w3.org/ns/org#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+
+<http://www.w3.org/ns/org#> a owl:Ontology ;
+    rdfs:label "Core organization ontology"@en ;
+    dcterms:source <https://www.w3.org/ns/org.ttl> ;
+    owl:versionInfo "W3C Recommendation 2014-01-16 (extract)" .
+
+org:Organization a owl:Class ;
+    rdfs:label "Organization"@en ;
+    rdfs:subClassOf foaf:Agent .
+
+org:FormalOrganization a owl:Class ;
+    rdfs:label "Formal Organization"@en ;
+    rdfs:subClassOf org:Organization .
+
+org:OrganizationalUnit a owl:Class ;
+    rdfs:label "OrganizationalUnit"@en ;
+    rdfs:subClassOf org:Organization .
+
+org:Site a owl:Class ;
+    rdfs:label "Site"@en ;
+    rdfs:comment "An office or other premise at which the organization is located."@en .
+
+org:hasSite a owl:ObjectProperty ;
+    rdfs:label "has site"@en ;
+    rdfs:domain org:Organization ;
+    rdfs:range org:Site ;
+    owl:inverseOf org:siteOf .
+
+org:siteOf a owl:ObjectProperty ;
+    rdfs:label "is site of"@en ;
+    rdfs:domain org:Site ;
+    rdfs:range org:Organization ;
+    owl:inverseOf org:hasSite .
+
+org:unitOf a owl:ObjectProperty ;
+    rdfs:label "unit of"@en ;
+    rdfs:domain org:OrganizationalUnit ;
+    rdfs:range org:FormalOrganization .

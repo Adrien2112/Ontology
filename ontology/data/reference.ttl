@@ -1,0 +1,41 @@
+# Données de référence de l'entreprise : sites et seuils de supervision — niveau N1/N2.
+# Les seuils dépendent du type de site (ex. température tolérée plus haute en blanchisserie).
+@prefix d:    <https://adrien2112.github.io/data/> .
+@prefix orga: <https://adrien2112.github.io/ontology/organisation#> .
+@prefix mon:  <https://adrien2112.github.io/ontology/supervision#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+# --- Sites -----------------------------------------------------------------------------------
+
+d:site-corbas a orga:Site ; orga:nom "Blanchisserie de Corbas" ; orga:typeDeSite orga:Blanchisserie .
+d:site-roubaix a orga:Site ; orga:nom "Atelier de confection de Roubaix" ; orga:typeDeSite orga:AtelierConfection .
+d:site-saran a orga:Site ; orga:nom "Entrepôt logistique de Saran" ; orga:typeDeSite orga:Entrepot .
+d:site-paris a orga:Site ; orga:nom "Siège de Paris" ; orga:typeDeSite orga:Siege .
+
+# --- Seuils : température processeur (°C) ------------------------------------------------------
+
+d:seuil-temp-blanchisserie a mon:Seuil ; mon:pourMetrique mon:TemperatureCPU ; mon:pourTypeDeSite orga:Blanchisserie ; mon:valeurMax "90"^^xsd:decimal .
+d:seuil-temp-atelier a mon:Seuil ; mon:pourMetrique mon:TemperatureCPU ; mon:pourTypeDeSite orga:AtelierConfection ; mon:valeurMax "85"^^xsd:decimal .
+d:seuil-temp-entrepot a mon:Seuil ; mon:pourMetrique mon:TemperatureCPU ; mon:pourTypeDeSite orga:Entrepot ; mon:valeurMax "80"^^xsd:decimal .
+d:seuil-temp-siege a mon:Seuil ; mon:pourMetrique mon:TemperatureCPU ; mon:pourTypeDeSite orga:Siege ; mon:valeurMax "75"^^xsd:decimal .
+
+# --- Seuils : utilisation processeur (%) -------------------------------------------------------
+
+d:seuil-cpu-blanchisserie a mon:Seuil ; mon:pourMetrique mon:UtilisationCPU ; mon:pourTypeDeSite orga:Blanchisserie ; mon:valeurMax "95"^^xsd:decimal .
+d:seuil-cpu-atelier a mon:Seuil ; mon:pourMetrique mon:UtilisationCPU ; mon:pourTypeDeSite orga:AtelierConfection ; mon:valeurMax "95"^^xsd:decimal .
+d:seuil-cpu-entrepot a mon:Seuil ; mon:pourMetrique mon:UtilisationCPU ; mon:pourTypeDeSite orga:Entrepot ; mon:valeurMax "95"^^xsd:decimal .
+d:seuil-cpu-siege a mon:Seuil ; mon:pourMetrique mon:UtilisationCPU ; mon:pourTypeDeSite orga:Siege ; mon:valeurMax "90"^^xsd:decimal .
+
+# --- Seuils : occupation disque (%) ------------------------------------------------------------
+
+d:seuil-disque-blanchisserie a mon:Seuil ; mon:pourMetrique mon:UtilisationDisque ; mon:pourTypeDeSite orga:Blanchisserie ; mon:valeurMax "90"^^xsd:decimal .
+d:seuil-disque-atelier a mon:Seuil ; mon:pourMetrique mon:UtilisationDisque ; mon:pourTypeDeSite orga:AtelierConfection ; mon:valeurMax "90"^^xsd:decimal .
+d:seuil-disque-entrepot a mon:Seuil ; mon:pourMetrique mon:UtilisationDisque ; mon:pourTypeDeSite orga:Entrepot ; mon:valeurMax "90"^^xsd:decimal .
+d:seuil-disque-siege a mon:Seuil ; mon:pourMetrique mon:UtilisationDisque ; mon:pourTypeDeSite orga:Siege ; mon:valeurMax "85"^^xsd:decimal .
+
+# --- Seuils : jours sans connexion -------------------------------------------------------------
+
+d:seuil-offline-blanchisserie a mon:Seuil ; mon:pourMetrique mon:JoursSansConnexion ; mon:pourTypeDeSite orga:Blanchisserie ; mon:valeurMax "3"^^xsd:decimal .
+d:seuil-offline-atelier a mon:Seuil ; mon:pourMetrique mon:JoursSansConnexion ; mon:pourTypeDeSite orga:AtelierConfection ; mon:valeurMax "3"^^xsd:decimal .
+d:seuil-offline-entrepot a mon:Seuil ; mon:pourMetrique mon:JoursSansConnexion ; mon:pourTypeDeSite orga:Entrepot ; mon:valeurMax "3"^^xsd:decimal .
+d:seuil-offline-siege a mon:Seuil ; mon:pourMetrique mon:JoursSansConnexion ; mon:pourTypeDeSite orga:Siege ; mon:valeurMax "14"^^xsd:decimal .

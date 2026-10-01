@@ -1,0 +1,86 @@
+# Méta-règles de qualité de l'ontologie de domaine — niveau N3.
+# Garantissent un langage ubiquitaire complet (FR/EN, définition) et un classement DDD explicite.
+@prefix msh:  <https://adrien2112.github.io/ontology/meta-shapes#> .
+@prefix ddd:  <https://adrien2112.github.io/ontology/ddd#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+msh: sh:declare [
+    sh:prefix "ddd" ; sh:namespace "https://adrien2112.github.io/ontology/ddd#"^^xsd:anyURI ] , [
+    sh:prefix "owl" ; sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ] , [
+    sh:prefix "rdf" ; sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ] , [
+    sh:prefix "rdfs" ; sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ] , [
+    sh:prefix "skos" ; sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ] .
+
+msh:ClasseDeDomaine a sh:NodeShape ;
+    rdfs:comment "Toute classe rattachée à un contexte borné est complètement documentée et typée DDD."@fr ;
+    sh:targetSubjectsOf ddd:boundedContext ;
+    sh:nodeKind sh:IRI ;
+    sh:pattern "[#/][A-Z][A-Za-z0-9]*$" ;
+    sh:message "Une classe du domaine doit être nommée en PascalCase."@fr ;
+    sh:property [
+        sh:path rdfs:label ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ; sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ;
+        sh:message "Label français (rdfs:label @fr) manquant ou multiple."@fr ] , [
+        sh:path rdfs:label ;
+        sh:qualifiedValueShape [ sh:languageIn ( "en" ) ] ; sh:qualifiedMinCount 1 ; sh:qualifiedMaxCount 1 ;
+        sh:message "Label anglais (rdfs:label @en) manquant ou multiple."@fr ] , [
+        sh:path skos:definition ;
+        sh:qualifiedValueShape [ sh:languageIn ( "fr" ) ] ; sh:qualifiedMinCount 1 ;
+        sh:message "Définition française (skos:definition @fr) manquante : le langage ubiquitaire doit être défini."@fr ] , [
+        sh:path ddd:boundedContext ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class ddd:BoundedContext ;
+        sh:message "Une classe appartient à exactement un contexte borné."@fr ] , [
+        sh:path ddd:stereotype ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:class ddd:Stereotype ;
+        sh:message "Une classe a exactement un stéréotype DDD (ddd:AggregateRoot, ddd:Entity, …)."@fr ] .
+
+msh:OntologieDeDomaine a sh:NodeShape ;
+    rdfs:comment "Règles transverses à chaque module d'ontologie de domaine."@fr ;
+    sh:targetClass ddd:DomainOntology ;
+    sh:property [
+        sh:path ddd:namespaceIri ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ;
+        sh:message "Une ontologie de domaine déclare exactement un ddd:namespaceIri."@fr ] ;
+    sh:sparql [
+        sh:message "Classe {?value} sans contexte borné : toute classe du domaine doit déclarer ddd:boundedContext."@fr ;
+        sh:prefixes msh: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this ddd:namespaceIri ?ns .
+                ?value a owl:Class .
+                FILTER (STRSTARTS(STR(?value), ?ns))
+                FILTER NOT EXISTS { ?value ddd:boundedContext ?c }
+            }""" ] , [
+        sh:message "Propriété {?value} incomplète : labels @fr et @en, rdfs:domain et rdfs:range sont obligatoires, nom en camelCase."@fr ;
+        sh:prefixes msh: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this ddd:namespaceIri ?ns .
+                ?value a ?kind .
+                FILTER (?kind IN (owl:ObjectProperty, owl:DatatypeProperty))
+                FILTER (STRSTARTS(STR(?value), ?ns))
+                FILTER (
+                    NOT EXISTS { ?value rdfs:label ?fr . FILTER (LANG(?fr) = "fr") } ||
+                    NOT EXISTS { ?value rdfs:label ?en . FILTER (LANG(?en) = "en") } ||
+                    NOT EXISTS { ?value rdfs:domain ?d } ||
+                    NOT EXISTS { ?value rdfs:range ?r } ||
+                    !REGEX(STR(?value), "[#/][a-z][A-Za-z0-9]*$")
+                )
+            }""" ] , [
+        sh:message "Valeur d'énumération {?value} sans label @fr ni définition @fr."@fr ;
+        sh:prefixes msh: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this ddd:namespaceIri ?ns .
+                ?enum ddd:stereotype ddd:Enumeration .
+                ?value a ?enum .
+                FILTER (STRSTARTS(STR(?enum), ?ns))
+                FILTER (
+                    NOT EXISTS { ?value rdfs:label ?fr . FILTER (LANG(?fr) = "fr") } ||
+                    NOT EXISTS { ?value skos:definition ?def . FILTER (LANG(?def) = "fr") }
+                )
+            }""" ] .

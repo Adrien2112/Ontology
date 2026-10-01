@@ -1,0 +1,65 @@
+# Méta-ontologie Domain-Driven Design — niveau N3 (méta-garde-fou).
+# Décrit les notions DDD utilisées pour annoter l'ontologie de domaine : contextes bornés,
+# stéréotypes (agrégat, entité, objet-valeur, événement, énumération) et invariants.
+@prefix ddd:  <https://adrien2112.github.io/ontology/ddd#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+
+<https://adrien2112.github.io/ontology/ddd> a owl:Ontology ;
+    rdfs:label "Méta-ontologie DDD"@fr , "DDD meta-ontology"@en ;
+    owl:versionInfo "1.0.0" .
+
+ddd:BoundedContext a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Contexte borné"@fr , "Bounded context"@en ;
+    skos:definition "Frontière explicite à l'intérieur de laquelle un modèle et son langage ubiquitaire s'appliquent."@fr .
+
+ddd:Stereotype a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Stéréotype DDD"@fr , "DDD stereotype"@en ;
+    skos:definition "Rôle tactique d'une classe du domaine (agrégat, entité, objet-valeur…)."@fr .
+
+ddd:AggregateRoot a ddd:Stereotype ; rdfs:label "Racine d'agrégat"@fr , "Aggregate root"@en .
+ddd:Entity a ddd:Stereotype ; rdfs:label "Entité"@fr , "Entity"@en .
+ddd:ValueObject a ddd:Stereotype ; rdfs:label "Objet-valeur"@fr , "Value object"@en .
+ddd:DomainEvent a ddd:Stereotype ; rdfs:label "Événement de domaine"@fr , "Domain event"@en .
+ddd:Enumeration a ddd:Stereotype ; rdfs:label "Énumération"@fr , "Enumeration"@en .
+
+ddd:Invariant a owl:Class ;
+    rdfs:subClassOf sh:NodeShape ;
+    rdfs:label "Invariant"@fr , "Invariant"@en ;
+    skos:definition "Règle métier toujours vraie, exprimée comme forme SHACL et prouvée par des exemples valides et invalides."@fr .
+
+ddd:DomainOntology a owl:Class ;
+    rdfs:subClassOf owl:Ontology ;
+    rdfs:label "Ontologie de domaine"@fr , "Domain ontology"@en ;
+    skos:definition "Module d'ontologie interne soumis aux règles de qualité et d'alignement."@fr .
+
+ddd:ExternalOntology a owl:Class ;
+    rdfs:subClassOf owl:Ontology ;
+    rdfs:label "Ontologie externe de référence"@fr , "External reference ontology"@en ;
+    skos:definition "Ontologie standard vendorisée, cible obligatoire de l'alignement."@fr .
+
+ddd:boundedContext a owl:AnnotationProperty ;
+    rdfs:label "contexte borné"@fr , "bounded context"@en ;
+    rdfs:range ddd:BoundedContext .
+
+ddd:stereotype a owl:AnnotationProperty ;
+    rdfs:label "stéréotype"@fr , "stereotype"@en ;
+    rdfs:range ddd:Stereotype .
+
+ddd:namespaceIri a owl:AnnotationProperty ;
+    rdfs:label "espace de noms"@fr , "namespace IRI"@en ;
+    rdfs:range xsd:string .
+
+ddd:codeName a owl:AnnotationProperty ;
+    rdfs:label "nom de code"@fr , "code name"@en ;
+    skos:definition "Nom du module Python généré pour un contexte borné."@fr ;
+    rdfs:range xsd:string .
+
+ddd:constrains a owl:AnnotationProperty ;
+    rdfs:label "contraint"@fr , "constrains"@en ;
+    skos:definition "Classe du domaine concernée par un invariant."@fr .

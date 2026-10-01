@@ -1,0 +1,39 @@
+# Provenance des ontologies externes vendorisées — niveau N3.
+# kind = "verbatim" : copie octet pour octet du fichier amont.
+# kind = "extract"  : sous-ensemble fidèle (IRI, types, hiérarchies identiques) ; `onto external verify --online`
+#                     vérifie que chaque triplet de l'extrait existe bien dans le fichier amont.
+
+[[source]]
+file = "sosa.ttl"
+kind = "verbatim"
+upstream = "https://www.w3.org/ns/sosa/"
+retrieved_from = "https://raw.githubusercontent.com/w3c/sdw/gh-pages/ssn/integrated/sosa.ttl"
+version = "W3C Recommendation 2017-10-19"
+
+[[source]]
+file = "prov-o.ttl"
+kind = "verbatim"
+upstream = "https://www.w3.org/ns/prov-o"
+retrieved_from = "https://raw.githubusercontent.com/w3c/prov/master/ontology/prov-o.ttl"
+version = "W3C Recommendation 2013-04-30"
+
+[[source]]
+file = "org-extract.ttl"
+kind = "extract"
+upstream = "https://www.w3.org/ns/org.ttl"
+retrieved_from = "https://www.w3.org/ns/org.ttl"
+version = "W3C Recommendation 2014-01-16"
+
+[[source]]
+file = "skos-extract.ttl"
+kind = "extract"
+upstream = "https://www.w3.org/2009/08/skos-reference/skos.rdf"
+retrieved_from = "https://www.w3.org/2009/08/skos-reference/skos.rdf"
+version = "W3C Recommendation 2009-08-18"
+
+[[source]]
+file = "dcterms-extract.ttl"
+kind = "extract"
+upstream = "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl"
+retrieved_from = "https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl"
+version = "2020-01-20"

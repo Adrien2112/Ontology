@@ -1,0 +1,27 @@
+name: Garde-fous ontologiques
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Installer
+        run: pip install -e ".[dev]"
+      - name: onto check (mode CI)
+        # Base de comparaison pour la conservativité des amendements N1 : la branche cible de la PR.
+        env:
+          ONTO_BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || 'HEAD~1' }}
+        run: onto check --ci --base "$ONTO_BASE"
+      - name: Tests
+        run: pytest -q
+      - name: Démonstration de bout en bout
+        run: python -m fleet.demo

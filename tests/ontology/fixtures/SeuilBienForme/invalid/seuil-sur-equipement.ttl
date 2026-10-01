@@ -1,0 +1,10 @@
+# Seuil rattaché à un équipement individuel (interdit).
+@prefix d:     <https://adrien2112.github.io/data/> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix mon:   <https://adrien2112.github.io/ontology/supervision#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+d:site-a a orga:Site ; orga:nom "Blanchisserie A" ; orga:typeDeSite orga:Blanchisserie .
+d:pc-1 a fleet:PosteFixe ; fleet:numeroSerie "PF-000001" ; fleet:installeSur d:site-a .
+d:seuil-1 a mon:Seuil ; mon:pourMetrique mon:TemperatureCPU ; mon:pourTypeDeSite orga:Blanchisserie ; mon:valeurMax "90"^^xsd:decimal ; mon:surEquipement d:pc-1 .

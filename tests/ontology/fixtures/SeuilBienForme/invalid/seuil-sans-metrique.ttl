@@ -1,0 +1,8 @@
+# Seuil sans métrique.
+@prefix d:     <https://adrien2112.github.io/data/> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix mon:   <https://adrien2112.github.io/ontology/supervision#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+d:seuil-1 a mon:Seuil ; mon:pourTypeDeSite orga:Blanchisserie ; mon:valeurMax "90"^^xsd:decimal .

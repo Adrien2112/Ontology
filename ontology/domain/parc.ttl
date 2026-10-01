@@ -1,0 +1,66 @@
+# Contexte borné « Parc » — flotte de PC et terminaux supervisés par le département IT.
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix ddd:   <https://adrien2112.github.io/ontology/ddd#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+
+<https://adrien2112.github.io/ontology/parc> a owl:Ontology , ddd:DomainOntology ;
+    rdfs:label "Parc informatique"@fr , "IT fleet"@en ;
+    ddd:namespaceIri "https://adrien2112.github.io/ontology/parc#" ;
+    owl:versionInfo "1.0.0" .
+
+fleet:ContexteParc a ddd:BoundedContext ;
+    rdfs:label "Parc"@fr , "Fleet"@en ;
+    ddd:codeName "parc" ;
+    skos:definition "Inventaire des équipements informatiques et de leur implantation."@fr .
+
+# --- Classes -------------------------------------------------------------------------------
+
+fleet:Equipement a owl:Class ;
+    rdfs:label "Équipement"@fr , "Device"@en ;
+    skos:definition "Matériel informatique inventorié, identifié par son numéro de série et installé sur un site."@fr ;
+    ddd:boundedContext fleet:ContexteParc ;
+    ddd:stereotype ddd:AggregateRoot .
+
+fleet:PosteFixe a owl:Class ;
+    rdfs:subClassOf fleet:Equipement ;
+    rdfs:label "Poste fixe"@fr , "Desktop computer"@en ;
+    skos:definition "Ordinateur de bureau à poste fixe."@fr ;
+    ddd:boundedContext fleet:ContexteParc ;
+    ddd:stereotype ddd:AggregateRoot .
+
+fleet:Portable a owl:Class ;
+    rdfs:subClassOf fleet:Equipement ;
+    rdfs:label "Ordinateur portable"@fr , "Laptop"@en ;
+    skos:definition "Ordinateur portable, typiquement utilisé par les commerciaux et l'encadrement."@fr ;
+    ddd:boundedContext fleet:ContexteParc ;
+    ddd:stereotype ddd:AggregateRoot .
+
+fleet:TerminalAtelier a owl:Class ;
+    rdfs:subClassOf fleet:Equipement ;
+    rdfs:label "Terminal d'atelier"@fr , "Shop-floor terminal"@en ;
+    skos:definition "PC durci installé en zone de production (poussière, chaleur, vibrations)."@fr ;
+    ddd:boundedContext fleet:ContexteParc ;
+    ddd:stereotype ddd:AggregateRoot .
+
+fleet:StationRFID a owl:Class ;
+    rdfs:subClassOf fleet:Equipement ;
+    rdfs:label "Station de lecture RFID"@fr , "RFID reading station"@en ;
+    skos:definition "PC piloté d'un portique lisant les puces RFID cousues dans les vêtements pour en tracer les cycles de lavage et d'expédition."@fr ;
+    ddd:boundedContext fleet:ContexteParc ;
+    ddd:stereotype ddd:AggregateRoot .
+
+# --- Propriétés ----------------------------------------------------------------------------
+
+fleet:numeroSerie a owl:DatatypeProperty ;
+    rdfs:label "numéro de série"@fr , "serial number"@en ;
+    rdfs:domain fleet:Equipement ;
+    rdfs:range xsd:string .
+
+fleet:installeSur a owl:ObjectProperty ;
+    rdfs:label "installé sur"@fr , "installed at"@en ;
+    rdfs:domain fleet:Equipement ;
+    rdfs:range orga:Site .

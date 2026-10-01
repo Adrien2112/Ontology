@@ -1,0 +1,37 @@
+# Alignement de l'ontologie interne sur les ontologies externes — niveau N1/N2.
+# Chaque axiome rattache un terme interne à un standard : le domaine n'invente rien « hors sol ».
+@prefix orga:    <https://adrien2112.github.io/ontology/organisation#> .
+@prefix fleet:   <https://adrien2112.github.io/ontology/parc#> .
+@prefix mon:     <https://adrien2112.github.io/ontology/supervision#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix sosa:    <http://www.w3.org/ns/sosa/> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix org:     <http://www.w3.org/ns/org#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# Organisation
+orga:Site rdfs:subClassOf org:Site , prov:Location .
+orga:TypeDeSite rdfs:subClassOf skos:Concept .
+orga:nom rdfs:subPropertyOf dcterms:title .
+orga:typeDeSite rdfs:subPropertyOf dcterms:type .
+
+# Parc
+fleet:Equipement rdfs:subClassOf sosa:Platform , sosa:FeatureOfInterest .
+fleet:numeroSerie rdfs:subPropertyOf dcterms:identifier .
+fleet:installeSur rdfs:subPropertyOf prov:atLocation .
+
+# Supervision
+mon:Metrique rdfs:subClassOf sosa:ObservableProperty .
+mon:Observation rdfs:subClassOf sosa:Observation .
+mon:Seuil rdfs:subClassOf prov:Entity .
+mon:Alerte rdfs:subClassOf prov:Entity .
+mon:surEquipement rdfs:subPropertyOf sosa:hasFeatureOfInterest .
+mon:metrique rdfs:subPropertyOf sosa:observedProperty .
+mon:valeur rdfs:subPropertyOf sosa:hasSimpleResult .
+mon:horodatage rdfs:subPropertyOf sosa:resultTime .
+mon:pourMetrique rdfs:subPropertyOf sosa:observedProperty .
+mon:pourTypeDeSite rdfs:subPropertyOf dcterms:subject .
+mon:valeurMax rdfs:subPropertyOf prov:value .
+mon:declencheePar rdfs:subPropertyOf prov:wasDerivedFrom .
+mon:selonSeuil rdfs:subPropertyOf prov:wasDerivedFrom .

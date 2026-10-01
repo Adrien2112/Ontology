@@ -1,0 +1,20 @@
+# Inventaire d'exemple du parc (validé par les invariants comme toute donnée du dépôt).
+@prefix d:     <https://adrien2112.github.io/data/> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+
+# Blanchisserie de Corbas
+d:pc-cor-rfid-01 a fleet:StationRFID ; fleet:numeroSerie "RF-COR-0001" ; fleet:installeSur d:site-corbas .
+d:pc-cor-rfid-02 a fleet:StationRFID ; fleet:numeroSerie "RF-COR-0002" ; fleet:installeSur d:site-corbas .
+d:pc-cor-ta-01 a fleet:TerminalAtelier ; fleet:numeroSerie "TA-COR-0001" ; fleet:installeSur d:site-corbas .
+
+# Atelier de confection de Roubaix
+d:pc-rbx-ta-01 a fleet:TerminalAtelier ; fleet:numeroSerie "TA-RBX-0001" ; fleet:installeSur d:site-roubaix .
+d:pc-rbx-pf-01 a fleet:PosteFixe ; fleet:numeroSerie "PF-RBX-0001" ; fleet:installeSur d:site-roubaix .
+
+# Entrepôt de Saran
+d:pc-sar-rfid-01 a fleet:StationRFID ; fleet:numeroSerie "RF-SAR-0001" ; fleet:installeSur d:site-saran .
+d:pc-sar-pf-01 a fleet:PosteFixe ; fleet:numeroSerie "PF-SAR-0001" ; fleet:installeSur d:site-saran .
+
+# Siège de Paris
+d:pc-par-pt-01 a fleet:Portable ; fleet:numeroSerie "PT-PAR-0001" ; fleet:installeSur d:site-paris .
+d:pc-par-pt-02 a fleet:Portable ; fleet:numeroSerie "PT-PAR-0002" ; fleet:installeSur d:site-paris .

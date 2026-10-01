@@ -1,0 +1,28 @@
+# Méta-règle d'alignement obligatoire sur les ontologies externes — niveau N3.
+# Un terme interne qui ne se rattache (transitivement) à aucun terme DÉCLARÉ d'une ontologie
+# externe de référence est refusé : le LLM ne peut pas inventer de concept « hors sol »,
+# ni s'aligner sur un terme externe inexistant (faute de frappe, hallucination).
+@prefix msh:  <https://adrien2112.github.io/ontology/meta-shapes#> .
+@prefix ddd:  <https://adrien2112.github.io/ontology/ddd#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+msh:AlignementObligatoire a sh:NodeShape ;
+    rdfs:comment "Chaque classe et propriété du domaine est alignée sur un terme externe déclaré."@fr ;
+    sh:targetClass ddd:DomainOntology ;
+    sh:sparql [
+        sh:message "Terme {?value} non aligné : ajouter dans ontology/alignment/alignment.ttl un rdfs:subClassOf / rdfs:subPropertyOf / skos:*Match vers un terme déclaré d'une ontologie externe (SOSA, PROV-O, ORG, SKOS, DCTERMS)."@fr ;
+        sh:prefixes msh: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this ddd:namespaceIri ?ns .
+                ?value a ?kind .
+                FILTER (?kind IN (owl:Class, owl:ObjectProperty, owl:DatatypeProperty))
+                FILTER (STRSTARTS(STR(?value), ?ns))
+                FILTER NOT EXISTS {
+                    ?value (rdfs:subClassOf|rdfs:subPropertyOf|skos:exactMatch|skos:closeMatch|skos:broadMatch|skos:narrowMatch|skos:relatedMatch)+ ?ext .
+                    ?eo a ddd:ExternalOntology ; ddd:namespaceIri ?ens .
+                    FILTER (STRSTARTS(STR(?ext), ?ens))
+                    ?ext a ?declared .
+                }
+            }""" ] .

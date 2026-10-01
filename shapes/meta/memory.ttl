@@ -1,0 +1,50 @@
+# Règles de forme de la mémoire persistante — niveau N3.
+@prefix msh:     <https://adrien2112.github.io/ontology/meta-shapes#> .
+@prefix mem:     <https://adrien2112.github.io/ontology/memory#> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+msh: sh:declare [
+    sh:prefix "mem" ; sh:namespace "https://adrien2112.github.io/ontology/memory#"^^xsd:anyURI ] .
+
+msh:EntreeMemoire a sh:NodeShape ;
+    sh:targetClass mem:Entry ;
+    sh:nodeKind sh:IRI ;
+    sh:property [
+        sh:path mem:statement ; sh:minCount 1 ; sh:maxCount 1 ; sh:minLength 10 ;
+        sh:message "Une entrée mémoire porte exactement un énoncé d'au moins 10 caractères."@fr ] , [
+        sh:path mem:about ; sh:minCount 1 ; sh:nodeKind sh:IRI ;
+        sh:message "Une entrée mémoire concerne au moins un terme de l'ontologie (mem:about)."@fr ] , [
+        sh:path mem:status ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( mem:Proposed mem:Validated mem:Superseded mem:Retracted ) ;
+        sh:message "Statut mémoire invalide."@fr ] , [
+        sh:path prov:wasGeneratedBy ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:message "Une entrée mémoire est produite par exactement une session."@fr ] , [
+        sh:path prov:wasAttributedTo ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:message "Une entrée mémoire est attribuée à exactement un agent."@fr ] , [
+        sh:path dcterms:created ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] , [
+        sh:path mem:supersedes ; sh:class mem:Entry ;
+        sh:message "mem:supersedes doit désigner une entrée mémoire existante."@fr ] ;
+    sh:sparql [
+        sh:message "mem:about {?value} ne désigne aucun terme connu de l'ontologie."@fr ;
+        sh:prefixes msh: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this mem:about ?value .
+                FILTER NOT EXISTS { ?value a ?t }
+            }""" ] , [
+        sh:message "Une entrée validée doit indiquer qui l'a validée (mem:validatedBy)."@fr ;
+        sh:prefixes msh: ;
+        sh:select """
+            SELECT $this WHERE {
+                $this mem:status mem:Validated .
+                FILTER NOT EXISTS { $this mem:validatedBy ?who }
+            }""" ] .
+
+msh:SessionMemoire a sh:NodeShape ;
+    sh:targetClass mem:Session ;
+    sh:property [ sh:path prov:startedAtTime ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ] ,
+                [ sh:path mem:tool ; sh:minCount 1 ; sh:maxCount 1 ] .

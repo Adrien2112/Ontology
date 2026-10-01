@@ -1,0 +1,108 @@
+# Contexte borné « Supervision » — observations de métriques, seuils et alertes.
+@prefix mon:   <https://adrien2112.github.io/ontology/supervision#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix ddd:   <https://adrien2112.github.io/ontology/ddd#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+
+<https://adrien2112.github.io/ontology/supervision> a owl:Ontology , ddd:DomainOntology ;
+    rdfs:label "Supervision"@fr , "Monitoring"@en ;
+    ddd:namespaceIri "https://adrien2112.github.io/ontology/supervision#" ;
+    owl:versionInfo "1.0.0" .
+
+mon:ContexteSupervision a ddd:BoundedContext ;
+    rdfs:label "Supervision"@fr , "Monitoring"@en ;
+    ddd:codeName "supervision" ;
+    skos:definition "Collecte des métriques des équipements et détection des dépassements de seuils."@fr .
+
+# --- Classes -------------------------------------------------------------------------------
+
+mon:Metrique a owl:Class ;
+    rdfs:label "Métrique"@fr , "Metric"@en ;
+    skos:definition "Grandeur mesurée sur un équipement."@fr ;
+    ddd:boundedContext mon:ContexteSupervision ;
+    ddd:stereotype ddd:Enumeration .
+
+mon:TemperatureCPU a mon:Metrique ;
+    rdfs:label "Température processeur (°C)"@fr , "CPU temperature (°C)"@en ;
+    skos:definition "Température du processeur en degrés Celsius."@fr .
+
+mon:UtilisationCPU a mon:Metrique ;
+    rdfs:label "Utilisation processeur (%)"@fr , "CPU usage (%)"@en ;
+    skos:definition "Charge moyenne du processeur en pourcentage."@fr .
+
+mon:UtilisationDisque a mon:Metrique ;
+    rdfs:label "Occupation disque (%)"@fr , "Disk usage (%)"@en ;
+    skos:definition "Taux d'occupation du disque système en pourcentage."@fr .
+
+mon:JoursSansConnexion a mon:Metrique ;
+    rdfs:label "Jours sans connexion"@fr , "Days offline"@en ;
+    skos:definition "Nombre de jours depuis le dernier contact de l'agent de supervision."@fr .
+
+mon:Observation a owl:Class ;
+    rdfs:label "Observation"@fr , "Observation"@en ;
+    skos:definition "Mesure horodatée d'une métrique sur un équipement."@fr ;
+    ddd:boundedContext mon:ContexteSupervision ;
+    ddd:stereotype ddd:Entity .
+
+mon:Seuil a owl:Class ;
+    rdfs:label "Seuil"@fr , "Threshold"@en ;
+    skos:definition "Valeur maximale tolérée d'une métrique pour un type de site donné."@fr ;
+    ddd:boundedContext mon:ContexteSupervision ;
+    ddd:stereotype ddd:ValueObject .
+
+mon:Alerte a owl:Class ;
+    rdfs:label "Alerte"@fr , "Alert"@en ;
+    skos:definition "Événement émis lorsqu'une observation dépasse le seuil applicable au type de site de l'équipement."@fr ;
+    ddd:boundedContext mon:ContexteSupervision ;
+    ddd:stereotype ddd:DomainEvent .
+
+# --- Propriétés ----------------------------------------------------------------------------
+
+mon:surEquipement a owl:ObjectProperty ;
+    rdfs:label "sur l'équipement"@fr , "on device"@en ;
+    rdfs:domain mon:Observation ;
+    rdfs:range fleet:Equipement .
+
+mon:metrique a owl:ObjectProperty ;
+    rdfs:label "métrique"@fr , "metric"@en ;
+    rdfs:domain mon:Observation ;
+    rdfs:range mon:Metrique .
+
+mon:valeur a owl:DatatypeProperty ;
+    rdfs:label "valeur"@fr , "value"@en ;
+    rdfs:domain mon:Observation ;
+    rdfs:range xsd:decimal .
+
+mon:horodatage a owl:DatatypeProperty ;
+    rdfs:label "horodatage"@fr , "timestamp"@en ;
+    rdfs:domain mon:Observation ;
+    rdfs:range xsd:dateTime .
+
+mon:pourMetrique a owl:ObjectProperty ;
+    rdfs:label "pour la métrique"@fr , "for metric"@en ;
+    rdfs:domain mon:Seuil ;
+    rdfs:range mon:Metrique .
+
+mon:pourTypeDeSite a owl:ObjectProperty ;
+    rdfs:label "pour le type de site"@fr , "for site type"@en ;
+    rdfs:domain mon:Seuil ;
+    rdfs:range orga:TypeDeSite .
+
+mon:valeurMax a owl:DatatypeProperty ;
+    rdfs:label "valeur maximale"@fr , "maximum value"@en ;
+    rdfs:domain mon:Seuil ;
+    rdfs:range xsd:decimal .
+
+mon:declencheePar a owl:ObjectProperty ;
+    rdfs:label "déclenchée par"@fr , "triggered by"@en ;
+    rdfs:domain mon:Alerte ;
+    rdfs:range mon:Observation .
+
+mon:selonSeuil a owl:ObjectProperty ;
+    rdfs:label "selon le seuil"@fr , "according to threshold"@en ;
+    rdfs:domain mon:Alerte ;
+    rdfs:range mon:Seuil .

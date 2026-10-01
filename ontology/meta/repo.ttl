@@ -1,0 +1,52 @@
+# Méta-ontologie de gouvernance du dépôt — niveau N3.
+# Décrit les amendements (changements de l'ontologie) et leurs niveaux de criticité.
+@prefix repo:    <https://adrien2112.github.io/ontology/repo#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+
+<https://adrien2112.github.io/ontology/repo> a owl:Ontology ;
+    rdfs:label "Gouvernance du dépôt"@fr , "Repository governance"@en ;
+    owl:versionInfo "1.0.0" .
+
+repo:Amendment a owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Amendement"@fr , "Amendment"@en ;
+    skos:definition "Demande tracée et justifiée de modification d'une zone protégée (ontologie, règles, garde-fous)."@fr .
+
+repo:ChangeLevel a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Niveau de changement"@fr , "Change level"@en .
+
+repo:N0 a repo:ChangeLevel ; repo:rank 0 ; rdfs:label "N0 – libre"@fr ;
+    skos:definition "Code applicatif, tests, fixtures, mémoire : aucune procédure."@fr .
+repo:N1 a repo:ChangeLevel ; repo:rank 1 ; rdfs:label "N1 – extension conservative"@fr ;
+    skos:definition "Ajout pur (nouveau terme aligné, nouvel invariant sur un nouveau terme) ; revue humaine en PR suffit."@fr .
+repo:N2 a repo:ChangeLevel ; repo:rank 2 ; rdfs:label "N2 – modification"@fr ;
+    skos:definition "Renommage, suppression, redéfinition, relâchement d'invariant ; approbation humaine avant fusion."@fr .
+repo:N3 a repo:ChangeLevel ; repo:rank 3 ; rdfs:label "N3 – méta-garde-fous"@fr ;
+    skos:definition "Ontologies externes, méta-règles, outillage de garde ; approbation humaine avant édition."@fr .
+
+repo:AmendmentStatus a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Statut d'amendement"@fr , "Amendment status"@en .
+
+repo:Open a repo:AmendmentStatus ; rdfs:label "ouvert"@fr .
+repo:Approved a repo:AmendmentStatus ; rdfs:label "approuvé"@fr .
+repo:Applied a repo:AmendmentStatus ; rdfs:label "appliqué"@fr .
+repo:Rejected a repo:AmendmentStatus ; rdfs:label "rejeté"@fr .
+
+repo:rank a owl:DatatypeProperty ; rdfs:label "rang"@fr ; rdfs:domain repo:ChangeLevel ; rdfs:range xsd:integer .
+repo:level a owl:ObjectProperty ; rdfs:label "niveau"@fr ; rdfs:domain repo:Amendment ; rdfs:range repo:ChangeLevel .
+repo:status a owl:ObjectProperty ; rdfs:label "statut"@fr ; rdfs:domain repo:Amendment ; rdfs:range repo:AmendmentStatus .
+repo:covers a owl:DatatypeProperty ; rdfs:label "couvre"@fr ; rdfs:domain repo:Amendment ; rdfs:range xsd:string ;
+    skos:definition "Chemin ou motif glob des fichiers que l'amendement autorise à modifier."@fr .
+repo:about a owl:ObjectProperty ; rdfs:label "concerne"@fr ; rdfs:domain repo:Amendment .
+repo:justification a owl:DatatypeProperty ; rdfs:label "justification"@fr ; rdfs:domain repo:Amendment ; rdfs:range xsd:string .
+repo:alternativesConsidered a owl:DatatypeProperty ; rdfs:label "alternatives envisagées"@fr ; rdfs:domain repo:Amendment ; rdfs:range xsd:string ;
+    skos:definition "Pourquoi les termes et règles existants ne suffisent pas. Obligatoire : le changement doit rester l'exception."@fr .
+repo:author a owl:DatatypeProperty ; rdfs:label "auteur"@fr ; rdfs:domain repo:Amendment ; rdfs:range xsd:string .
+repo:approvedBy a owl:DatatypeProperty ; rdfs:label "approuvé par"@fr ; rdfs:domain repo:Amendment ; rdfs:range xsd:string .
+repo:requalifiedFrom a owl:ObjectProperty ; rdfs:label "requalifié depuis"@fr ; rdfs:domain repo:Amendment ; rdfs:range repo:ChangeLevel .

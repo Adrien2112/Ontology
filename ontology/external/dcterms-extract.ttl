@@ -1,0 +1,21 @@
+# EXTRAIT FIDÈLE de DCMI Metadata Terms (https://www.dublincore.org/specifications/dublin-core/dcmi-terms/), 2020-01-20.
+# IRI et types repris à l'identique ; seuls les termes utilisés par ce dépôt sont présents.
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<http://purl.org/dc/terms/> a owl:Ontology ;
+    rdfs:label "DCMI Metadata Terms - other"@en ;
+    dcterms:source <https://www.dublincore.org/specifications/dublin-core/dcmi-terms/dublin_core_terms.ttl> ;
+    owl:versionInfo "2020-01-20 (extract)" .
+
+dcterms:identifier a rdf:Property ; rdfs:label "Identifier"@en .
+dcterms:title a rdf:Property ; rdfs:label "Title"@en .
+dcterms:description a rdf:Property ; rdfs:label "Description"@en .
+dcterms:type a rdf:Property ; rdfs:label "Type"@en .
+dcterms:created a rdf:Property ; rdfs:label "Date Created"@en .
+dcterms:modified a rdf:Property ; rdfs:label "Date Modified"@en .
+dcterms:source a rdf:Property ; rdfs:label "Source"@en .
+dcterms:creator a rdf:Property ; rdfs:label "Creator"@en .
+dcterms:subject a rdf:Property ; rdfs:label "Subject"@en .

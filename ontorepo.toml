@@ -1,0 +1,76 @@
+# Configuration de l'outillage ontorepo — niveau N3 (méta-garde-fou).
+# Tous les chemins sont relatifs à la racine du dépôt. Ce fichier rend l'outillage réutilisable
+# sur un autre dépôt (voir docs/etude/04-adoption-depot-existant.md).
+
+[ontology]
+base_iri = "https://adrien2112.github.io/ontology/"
+external = "ontology/external"
+meta = "ontology/meta"
+domain = "ontology/domain"
+alignment = "ontology/alignment"
+data = ["ontology/data", "examples"]
+
+[shapes]
+meta = "shapes/meta"
+domain = "shapes/domain"
+fixtures = "tests/ontology/fixtures"
+
+[codegen]
+output = "src/fleet/domain/_generated"
+package = "fleet.domain._generated"
+
+[memory]
+dir = "memory"
+
+[governance]
+amendments = "governance/amendments"
+lock = "governance/protected.lock.toml"
+policy = "governance/policy.toml"
+state = ".ontorepo"
+
+# Zones protégées : le niveau est le niveau MINIMAL d'amendement requis pour modifier le fichier.
+[[protect]]
+level = 1
+paths = [
+  "ontology/domain/**",
+  "ontology/alignment/alignment.ttl",
+  "ontology/data/**",
+  "shapes/domain/**",
+]
+
+# L'outillage de vérification est lui-même un garde-fou : le modifier exige une approbation avant fusion.
+[[protect]]
+level = 2
+paths = ["src/ontorepo/**"]
+
+[[protect]]
+level = 3
+paths = [
+  "ontology/external/**",
+  "ontology/meta/**",
+  "ontology/alignment/external.ttl",
+  "shapes/meta/**",
+  "ontorepo.toml",
+  "governance/policy.toml",
+  "src/ontorepo/guard.py",
+  "src/ontorepo/hooks/**",
+  "scripts/onto",
+  ".claude/settings.json",
+  ".cursor/hooks.json",
+  ".github/workflows/**",
+  ".github/CODEOWNERS",
+  ".pre-commit-config.yaml",
+]
+
+[guard]
+# Fichiers modifiables uniquement via la CLI `onto` (jamais par édition directe d'un agent).
+cli_only = ["memory/**", "governance/amendments/**", "governance/protected.lock.toml"]
+# Commandes shell interdites aux agents (sous-chaînes). L'approbation est un acte humain.
+forbidden_commands = [
+  "onto amend approve",
+  "onto memory validate",
+  "git push --force",
+  "git push -f",
+  "--no-verify",
+  "git commit --amend",
+]

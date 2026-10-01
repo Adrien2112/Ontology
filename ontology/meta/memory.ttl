@@ -1,0 +1,51 @@
+# Méta-ontologie de la mémoire persistante — niveau N3. Alignée sur PROV-O.
+@prefix mem:     <https://adrien2112.github.io/ontology/memory#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+
+<https://adrien2112.github.io/ontology/memory> a owl:Ontology ;
+    rdfs:label "Mémoire persistante"@fr , "Persistent memory"@en ;
+    owl:versionInfo "1.0.0" .
+
+mem:Session a owl:Class ; rdfs:subClassOf prov:Activity ;
+    rdfs:label "Session de travail"@fr , "Work session"@en ;
+    skos:definition "Période de travail d'un agent (LLM ou humain) sur le dépôt."@fr .
+
+mem:Entry a owl:Class ; rdfs:subClassOf prov:Entity ;
+    rdfs:label "Entrée mémoire"@fr , "Memory entry"@en ;
+    skos:definition "Connaissance sur le travail, rattachée à des termes de l'ontologie."@fr .
+
+mem:Decision a owl:Class ; rdfs:subClassOf mem:Entry ; rdfs:label "Décision"@fr , "Decision"@en ;
+    skos:definition "Choix d'architecture ou de conception, avec contexte, alternatives et conséquences."@fr .
+mem:Lesson a owl:Class ; rdfs:subClassOf mem:Entry ; rdfs:label "Leçon"@fr , "Lesson"@en ;
+    skos:definition "Erreur rencontrée et correction à retenir."@fr .
+mem:Convention a owl:Class ; rdfs:subClassOf mem:Entry ; rdfs:label "Convention"@fr , "Convention"@en ;
+    skos:definition "Manière de faire adoptée dans le dépôt."@fr .
+mem:OpenQuestion a owl:Class ; rdfs:subClassOf mem:Entry ; rdfs:label "Question ouverte"@fr , "Open question"@en ;
+    skos:definition "Point non tranché nécessitant un arbitrage."@fr .
+mem:Fact a owl:Class ; rdfs:subClassOf mem:Entry ; rdfs:label "Constat"@fr , "Fact"@en ;
+    skos:definition "Constat vérifiable sur le code ou le dépôt."@fr .
+
+mem:EntryStatus a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Statut d'entrée"@fr .
+mem:Proposed a mem:EntryStatus ; rdfs:label "proposée"@fr ; skos:definition "Écrite par un agent, non confirmée par un humain."@fr .
+mem:Validated a mem:EntryStatus ; rdfs:label "validée"@fr ; skos:definition "Confirmée par un humain : fait autorité."@fr .
+mem:Superseded a mem:EntryStatus ; rdfs:label "remplacée"@fr .
+mem:Retracted a mem:EntryStatus ; rdfs:label "retirée"@fr .
+
+mem:statement a owl:DatatypeProperty ; rdfs:label "énoncé"@fr ; rdfs:domain mem:Entry ; rdfs:range xsd:string .
+mem:about a owl:ObjectProperty ; rdfs:label "concerne"@fr ; rdfs:domain mem:Entry ;
+    skos:definition "Terme de l'ontologie concerné ; doit exister dans la TBox."@fr .
+mem:status a owl:ObjectProperty ; rdfs:label "statut"@fr ; rdfs:domain mem:Entry ; rdfs:range mem:EntryStatus .
+mem:evidence a owl:DatatypeProperty ; rdfs:label "preuve"@fr ; rdfs:domain mem:Entry ; rdfs:range xsd:string .
+mem:supersedes a owl:ObjectProperty ; rdfs:subPropertyOf prov:wasRevisionOf ; rdfs:label "remplace"@fr ;
+    rdfs:domain mem:Entry ; rdfs:range mem:Entry .
+mem:reviewBy a owl:DatatypeProperty ; rdfs:label "à revoir avant"@fr ; rdfs:domain mem:Entry ; rdfs:range xsd:date .
+mem:proposesAmendment a owl:ObjectProperty ; rdfs:label "propose l'amendement"@fr ; rdfs:domain mem:Entry .
+mem:validatedBy a owl:DatatypeProperty ; rdfs:label "validée par"@fr ; rdfs:domain mem:Entry ; rdfs:range xsd:string .
+mem:tool a owl:DatatypeProperty ; rdfs:label "outil"@fr ; rdfs:domain mem:Session ; rdfs:range xsd:string .
+mem:branch a owl:DatatypeProperty ; rdfs:label "branche"@fr ; rdfs:domain mem:Session ; rdfs:range xsd:string .
+mem:startCommit a owl:DatatypeProperty ; rdfs:label "commit de départ"@fr ; rdfs:domain mem:Session ; rdfs:range xsd:string .
+mem:summary a owl:DatatypeProperty ; rdfs:label "résumé"@fr ; rdfs:domain mem:Session ; rdfs:range xsd:string .

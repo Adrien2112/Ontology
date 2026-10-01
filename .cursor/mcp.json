@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ontorepo": {
+      "command": "${workspaceFolder}/scripts/onto",
+      "args": ["mcp"]
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/onto hook claude SessionStart", "timeout": 180 } ] }
+    ],
+    "PreToolUse": [
+      { "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash",
+        "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/onto hook claude PreToolUse", "timeout": 30 } ] }
+    ],
+    "PostToolUse": [
+      { "matcher": "Edit|Write|MultiEdit",
+        "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/onto hook claude PostToolUse", "timeout": 60 } ] }
+    ],
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/scripts/onto hook claude Stop", "timeout": 180 } ] }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(onto check:*)", "Bash(onto explain:*)", "Bash(onto glossary:*)", "Bash(onto query:*)",
+      "Bash(onto validate:*)", "Bash(onto codegen:*)", "Bash(onto memory recall:*)", "Bash(onto memory summary:*)",
+      "Bash(onto stats:*)", "Bash(scripts/onto:*)", "Bash(pytest:*)", "mcp__ontorepo"
+    ],
+    "deny": [
+      "Bash(onto amend approve:*)", "Bash(onto memory validate:*)", "Bash(onto lock --init:*)"
+    ]
+  },
+  "enabledMcpjsonServers": ["ontorepo"]
+}

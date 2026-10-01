@@ -1,0 +1,19 @@
+# Entrée mémoire D-20261001-b5487a — écrite par `onto memory`, ne pas éditer à la main.
+@prefix agent: <https://adrien2112.github.io/memory/agent/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix entry: <https://adrien2112.github.io/memory/entry/> .
+@prefix mem: <https://adrien2112.github.io/ontology/memory#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix session: <https://adrien2112.github.io/memory/session/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+entry:D-20261001-b5487a
+    a mem:Decision ;
+    dcterms:created "2026-10-01T12:21:17+00:00"^^xsd:dateTime ;
+    prov:wasAttributedTo agent:claude-code ;
+    prov:wasGeneratedBy session:20261001-c48f9a ;
+    mem:about <https://adrien2112.github.io/ontology/organisation#TypeDeSite> ,
+        <https://adrien2112.github.io/ontology/supervision#Seuil> ;
+    mem:evidence "ontology/data/reference.ttl" ;
+    mem:statement "Les seuils de supervision dépendent du type de site et de la métrique, jamais d'un équipement individuel (inv:SeuilBienForme)." ;
+    mem:status mem:Proposed .

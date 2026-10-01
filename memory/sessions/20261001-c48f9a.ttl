@@ -1,0 +1,19 @@
+# Session de travail — écrite par `onto memory`, ne pas éditer à la main.
+@prefix agent: <https://adrien2112.github.io/memory/agent/> .
+@prefix mem: <https://adrien2112.github.io/ontology/memory#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix session: <https://adrien2112.github.io/memory/session/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+agent:claude-code
+    a prov:SoftwareAgent ;
+    rdfs:label "claude-code" .
+
+session:20261001-c48f9a
+    a mem:Session ;
+    prov:endedAtTime "2026-10-01T12:21:20+00:00"^^xsd:dateTime ;
+    prov:startedAtTime "2026-10-01T12:06:42+00:00"^^xsd:dateTime ;
+    prov:wasAssociatedWith agent:claude-code ;
+    mem:summary "Amorçage du dépôt : ontologies, règles SHACL, outillage onto, application de supervision, hooks Claude Code et Cursor, MCP, étude. AMD-0002 approuvé par Adrien2112 dans la conversation." ;
+    mem:tool "claude-code" .

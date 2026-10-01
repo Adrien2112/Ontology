@@ -1,0 +1,87 @@
+# Invariants du contexte « Supervision ».
+@prefix inv:   <https://adrien2112.github.io/ontology/invariants#> .
+@prefix mon:   <https://adrien2112.github.io/ontology/supervision#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix ddd:   <https://adrien2112.github.io/ontology/ddd#> .
+@prefix sh:    <http://www.w3.org/ns/shacl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+
+inv:ObservationComplete a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Une observation porte sur exactement un équipement, une métrique, une valeur décimale et un horodatage."@fr ;
+    ddd:constrains mon:Observation ;
+    sh:targetClass mon:Observation ;
+    sh:property [
+        sh:path mon:surEquipement ; sh:minCount 1 ; sh:maxCount 1 ; sh:class fleet:Equipement ;
+        sh:message "Une observation porte sur exactement un équipement inventorié."@fr ] , [
+        sh:path mon:metrique ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mon:Metrique ;
+        sh:message "Une observation mesure exactement une métrique connue."@fr ] , [
+        sh:path mon:valeur ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ;
+        sh:message "Une observation a exactement une valeur xsd:decimal."@fr ] , [
+        sh:path mon:horodatage ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:dateTime ;
+        sh:message "Une observation a exactement un horodatage xsd:dateTime."@fr ] .
+
+inv:ValeurPlausible a sh:NodeShape , ddd:Invariant ;
+    skos:definition "La valeur observée est physiquement plausible : pourcentages entre 0 et 100, jours positifs, température entre -20 et 150 °C."@fr ;
+    ddd:constrains mon:Observation ;
+    sh:targetClass mon:Observation ;
+    sh:sparql [
+        sh:message "Valeur {?value} physiquement impossible pour cette métrique."@fr ;
+        sh:prefixes inv: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this mon:metrique ?m ; mon:valeur ?value .
+                FILTER (isNumeric(?value))
+                FILTER (
+                    (?m IN (mon:UtilisationCPU, mon:UtilisationDisque) && (?value < 0 || ?value > 100)) ||
+                    (?m = mon:JoursSansConnexion && ?value < 0) ||
+                    (?m = mon:TemperatureCPU && (?value < -20 || ?value > 150))
+                )
+            }""" ] .
+
+inv:SeuilBienForme a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Un seuil s'applique à exactement une métrique et un type de site, jamais à un équipement individuel."@fr ;
+    ddd:constrains mon:Seuil ;
+    sh:targetClass mon:Seuil ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type rdfs:label rdfs:comment ) ;
+    sh:property [
+        sh:path mon:pourMetrique ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mon:Metrique ] , [
+        sh:path mon:pourTypeDeSite ; sh:minCount 1 ; sh:maxCount 1 ; sh:class orga:TypeDeSite ] , [
+        sh:path mon:valeurMax ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:decimal ] .
+
+inv:SeuilUnique a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Il existe au plus un seuil par couple (métrique, type de site)."@fr ;
+    ddd:constrains mon:Seuil ;
+    sh:targetClass mon:Seuil ;
+    sh:sparql [
+        sh:message "Seuil en doublon avec {?value} pour la même métrique et le même type de site."@fr ;
+        sh:prefixes inv: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this mon:pourMetrique ?m ; mon:pourTypeDeSite ?t .
+                ?value a mon:Seuil ; mon:pourMetrique ?m ; mon:pourTypeDeSite ?t .
+                FILTER (?value != $this)
+            }""" ] .
+
+inv:AlerteJustifiee a sh:NodeShape , ddd:Invariant ;
+    skos:definition "Une alerte référence une observation et le seuil applicable (même métrique, type du site de l'équipement) et la valeur observée dépasse strictement ce seuil."@fr ;
+    ddd:constrains mon:Alerte ;
+    sh:targetClass mon:Alerte ;
+    sh:property [
+        sh:path mon:declencheePar ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mon:Observation ] , [
+        sh:path mon:selonSeuil ; sh:minCount 1 ; sh:maxCount 1 ; sh:class mon:Seuil ] ;
+    sh:sparql [
+        sh:message "Alerte injustifiée : seuil non applicable (métrique ou type de site différents) ou valeur {?value} non supérieure au seuil."@fr ;
+        sh:prefixes inv: ;
+        sh:select """
+            SELECT $this ?value WHERE {
+                $this mon:declencheePar ?obs ; mon:selonSeuil ?seuil .
+                ?obs mon:metrique ?m ; mon:valeur ?value ; mon:surEquipement ?eq .
+                ?seuil mon:pourMetrique ?ms ; mon:pourTypeDeSite ?ts ; mon:valeurMax ?max .
+                OPTIONAL { ?eq fleet:installeSur ?site . ?site orga:typeDeSite ?t . }
+                FILTER (?m != ?ms || !BOUND(?t) || ?t != ?ts || ?value <= ?max)
+            }""" ] .

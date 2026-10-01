@@ -1,0 +1,9 @@
+# Station RFID installée au siège.
+@prefix d:     <https://adrien2112.github.io/data/> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix mon:   <https://adrien2112.github.io/ontology/supervision#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+d:site-s a orga:Site ; orga:nom "Siège S" ; orga:typeDeSite orga:Siege .
+d:rfid-1 a fleet:StationRFID ; fleet:numeroSerie "RF-000001" ; fleet:installeSur d:site-s .

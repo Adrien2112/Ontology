@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "ontorepo": {
+      "command": "sh",
+      "args": ["-c", "exec \"${CLAUDE_PROJECT_DIR:-.}\"/scripts/onto mcp"]
+    }
+  }
+}

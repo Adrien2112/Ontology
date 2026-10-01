@@ -1,0 +1,8 @@
+# Un site avec un nom et un type.
+@prefix d:     <https://adrien2112.github.io/data/> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix mon:   <https://adrien2112.github.io/ontology/supervision#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+d:site-a a orga:Site ; orga:nom "Blanchisserie A" ; orga:typeDeSite orga:Blanchisserie .

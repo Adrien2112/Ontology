@@ -1,0 +1,9 @@
+# Équipement typé uniquement fleet:Equipement.
+@prefix d:     <https://adrien2112.github.io/data/> .
+@prefix orga:  <https://adrien2112.github.io/ontology/organisation#> .
+@prefix fleet: <https://adrien2112.github.io/ontology/parc#> .
+@prefix mon:   <https://adrien2112.github.io/ontology/supervision#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+d:site-a a orga:Site ; orga:nom "Blanchisserie A" ; orga:typeDeSite orga:Blanchisserie .
+d:pc-1 a fleet:Equipement ; fleet:numeroSerie "EQ-000001" ; fleet:installeSur d:site-a .

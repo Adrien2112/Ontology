@@ -1,0 +1,60 @@
+# Contexte borné « Organisation » — sites de l'entreprise de vêtements industriels.
+# Niveau de protection : N1 (extension) / N2 (modification). Voir governance/.
+@prefix orga: <https://adrien2112.github.io/ontology/organisation#> .
+@prefix ddd:  <https://adrien2112.github.io/ontology/ddd#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://adrien2112.github.io/ontology/organisation> a owl:Ontology , ddd:DomainOntology ;
+    rdfs:label "Organisation"@fr , "Organisation"@en ;
+    ddd:namespaceIri "https://adrien2112.github.io/ontology/organisation#" ;
+    owl:versionInfo "1.0.0" .
+
+orga:ContexteOrganisation a ddd:BoundedContext ;
+    rdfs:label "Organisation"@fr , "Organisation"@en ;
+    ddd:codeName "organisation" ;
+    skos:definition "Implantation physique de l'entreprise : sites de production, de logistique et sièges."@fr .
+
+# --- Classes -------------------------------------------------------------------------------
+
+orga:Site a owl:Class ;
+    rdfs:label "Site"@fr , "Site"@en ;
+    skos:definition "Lieu physique de l'entreprise où des équipements informatiques sont installés."@fr ;
+    ddd:boundedContext orga:ContexteOrganisation ;
+    ddd:stereotype ddd:AggregateRoot .
+
+orga:TypeDeSite a owl:Class ;
+    rdfs:label "Type de site"@fr , "Site type"@en ;
+    skos:definition "Catégorie d'activité d'un site, qui détermine notamment les seuils de supervision applicables."@fr ;
+    ddd:boundedContext orga:ContexteOrganisation ;
+    ddd:stereotype ddd:Enumeration .
+
+orga:Blanchisserie a orga:TypeDeSite ;
+    rdfs:label "Blanchisserie industrielle"@fr , "Industrial laundry"@en ;
+    skos:definition "Site de lavage et de traitement des vêtements de travail loués : ambiance chaude et humide."@fr .
+
+orga:AtelierConfection a orga:TypeDeSite ;
+    rdfs:label "Atelier de confection"@fr , "Garment workshop"@en ;
+    skos:definition "Site de fabrication et de retouche des vêtements industriels."@fr .
+
+orga:Entrepot a orga:TypeDeSite ;
+    rdfs:label "Entrepôt logistique"@fr , "Logistics warehouse"@en ;
+    skos:definition "Site de stockage et d'expédition des vêtements."@fr .
+
+orga:Siege a orga:TypeDeSite ;
+    rdfs:label "Siège"@fr , "Headquarters"@en ;
+    skos:definition "Bureaux administratifs et commerciaux."@fr .
+
+# --- Propriétés ----------------------------------------------------------------------------
+
+orga:nom a owl:DatatypeProperty ;
+    rdfs:label "nom"@fr , "name"@en ;
+    rdfs:domain orga:Site ;
+    rdfs:range xsd:string .
+
+orga:typeDeSite a owl:ObjectProperty ;
+    rdfs:label "type de site"@fr , "site type"@en ;
+    rdfs:domain orga:Site ;
+    rdfs:range orga:TypeDeSite .

@@ -1,0 +1,12 @@
+---
+description: Contrat ontologique du dépôt (source unique : AGENTS.md)
+alwaysApply: true
+---
+
+Lire et appliquer @AGENTS.md avant toute modification. Résumé :
+
+- L'ontologie (`ontology/`) est la source de vérité ; les formes SHACL (`shapes/`) sont les garde-fous.
+- Interroger avant d'écrire : outils MCP `onto_explain`, `onto_glossary`, ou `./scripts/onto explain <terme>`.
+- TDD : exemple invalide → exemple valide → test rouge → `onto codegen` → code → `onto check` vert.
+- Ne jamais éditer `src/fleet/domain/_generated/`, `memory/`, `governance/` à la main.
+- Changer l'ontologie est permis mais exceptionnel : `onto amend open --level N …`.

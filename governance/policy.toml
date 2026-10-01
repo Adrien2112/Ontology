@@ -1,0 +1,10 @@
+# Politique « le changement ontologique est l'exception » — niveau N3.
+# Ces seuils ne bloquent rien : ils déclenchent un avertissement visible pour les humains.
+
+[amendments]
+window_commits = 50          # fenêtre glissante observée
+max_per_window = 3           # au-delà : avertissement « l'ontologie bouge trop souvent »
+
+[memory]
+proposed_max_age_days = 30   # une entrée « proposée » plus ancienne doit être validée ou retirée
+summary_max_entries = 12     # nombre d'entrées injectées au démarrage de session

@@ -1,0 +1,297 @@
+# Verrou des zones protégées — écrit par `onto lock`, ne pas éditer à la main.
+# Chaque entrée : niveau de protection, empreinte sha256, amendement ayant autorisé l'état actuel.
+
+[files.".claude/settings.json"]
+level = 3
+sha256 = "d375b9b1d4da17837d1893ecb6fd3414ad5ad074bf38a7e0c146618e637dbb92"
+amendment = "AMD-0002"
+
+[files.".cursor/hooks.json"]
+level = 3
+sha256 = "3df05b749883ec98146bba6a089840bf95f36ef079e56a24f7b18d650d2d15a2"
+amendment = "AMD-0002"
+
+[files.".github/CODEOWNERS"]
+level = 3
+sha256 = "aced857389c2c4b3a56a450219a34bf36afab6c6cd7684b2248da4ce36f6e7fd"
+amendment = "AMD-0002"
+
+[files.".github/workflows/ci.yml"]
+level = 3
+sha256 = "42f489cf67f010d0dc2fb0034e32def3b1f5b06e5bdb0caac4c68befbd6907ff"
+amendment = "AMD-0002"
+
+[files.".pre-commit-config.yaml"]
+level = 3
+sha256 = "4fe69b092cc63157a82ef17343f1212fe956b5fae1364788a9f82d0082f5cbe6"
+amendment = "AMD-0002"
+
+[files."governance/policy.toml"]
+level = 3
+sha256 = "f72e9562eb61862a2524bdfb92ddb4e2827e001ac3f197d36ed84c0c1b06e4b1"
+amendment = "AMD-0001"
+
+[files."ontology/alignment/alignment.ttl"]
+level = 1
+sha256 = "3dedc80332fc377b972151f08cb4cce8c87fc43009421255cca673c1e5e0b304"
+amendment = "AMD-0001"
+
+[files."ontology/alignment/external.ttl"]
+level = 3
+sha256 = "28d26144b583a5b5e045ad55dbbc4fa54363690cc3b02dbf7bb25b3045f6fc8c"
+amendment = "AMD-0001"
+
+[files."ontology/data/reference.ttl"]
+level = 1
+sha256 = "068c69132a76a5c1e81fde400f72e5e2f8a3aeac447cffd57dd28fe67ef0172f"
+amendment = "AMD-0001"
+
+[files."ontology/domain/organisation.ttl"]
+level = 1
+sha256 = "3fa5122f9b9d708327939e754e095d8071ebd899a9557115b2931664cc17ea22"
+amendment = "AMD-0001"
+
+[files."ontology/domain/parc.ttl"]
+level = 1
+sha256 = "267068b4c8a30e2476c98fa5a9387173710c0fbeb8f928cc7817b9b8d6b45f76"
+amendment = "AMD-0001"
+
+[files."ontology/domain/supervision.ttl"]
+level = 1
+sha256 = "b5ea0c6ac2e848d41b44dff6f440e7a1c427fea678cf3b7f2c09d4fdc4b5a23c"
+amendment = "AMD-0001"
+
+[files."ontology/external/SOURCES.toml"]
+level = 3
+sha256 = "f6ef70dc98afa1f98634c869b3f666e4e60a0ac9cda5ddcd6df323198ab2b93c"
+amendment = "AMD-0001"
+
+[files."ontology/external/dcterms-extract.ttl"]
+level = 3
+sha256 = "9f336219fe914bbd01e914a5939472499d3dede91756fd80bbdfd7dbe5ca6d01"
+amendment = "AMD-0001"
+
+[files."ontology/external/org-extract.ttl"]
+level = 3
+sha256 = "c55a3ee547b039a7bf219b4ea03a1f1564d9938942e809b911ad705b8a109cdd"
+amendment = "AMD-0001"
+
+[files."ontology/external/prov-o.ttl"]
+level = 3
+sha256 = "3d03c8e15753178541fb8cd59fbefecaf1861f9c37ef75190c6e938b85fb0c3d"
+amendment = "AMD-0001"
+
+[files."ontology/external/skos-extract.ttl"]
+level = 3
+sha256 = "e9b4ce0d056647495b8402645257d16953a5d344d2f06b52c145d2634fa5f510"
+amendment = "AMD-0001"
+
+[files."ontology/external/sosa.ttl"]
+level = 3
+sha256 = "c70b0d1c843c0047e4c98e0a89392e46a05752ff6365bda7f7f55303905a0392"
+amendment = "AMD-0001"
+
+[files."ontology/meta/ddd.ttl"]
+level = 3
+sha256 = "d9d1d289fb26f51584e7932d0cea636238ef137d35632d12526dde6c3d9464b1"
+amendment = "AMD-0001"
+
+[files."ontology/meta/memory.ttl"]
+level = 3
+sha256 = "b391449d2e9db8cb74b9ae4e795be03f9ca09474d9700325398fa3fb2a17d1d0"
+amendment = "AMD-0001"
+
+[files."ontology/meta/repo.ttl"]
+level = 3
+sha256 = "699138957f35c071593c9576240e0ddefe2e78d817ba406f7754690d53a1d7a8"
+amendment = "AMD-0001"
+
+[files."ontorepo.toml"]
+level = 3
+sha256 = "adc689ccae920a6eaf7ed78272ba6f7c39d176d0d64fb8bb4ac70df8f2721843"
+amendment = "AMD-0002"
+
+[files."scripts/onto"]
+level = 3
+sha256 = "193c59986b0a3448257c6a6b4aac58579121949a4c6c2d0ebacff0bcfeffe499"
+amendment = "AMD-0002"
+
+[files."shapes/domain/_prefixes.ttl"]
+level = 1
+sha256 = "34056103f7f4c85f24730ab68727d15b718e1970b031cd39378c863a48848ca4"
+amendment = "AMD-0001"
+
+[files."shapes/domain/organisation.ttl"]
+level = 1
+sha256 = "4190d3721798c25c1ab6d6de7cf10f74d6c9a3495868cbcd03aecd849b1714c9"
+amendment = "AMD-0001"
+
+[files."shapes/domain/parc.ttl"]
+level = 1
+sha256 = "c554a144cf8a06459ec1c9f841e81ab742394f2850ef3bd8d79add57b89b5cc2"
+amendment = "AMD-0001"
+
+[files."shapes/domain/supervision.ttl"]
+level = 1
+sha256 = "3347abc117ee1a769af02cfe11b2b1e93f48c6259c7dbea10f212c4cf8e76324"
+amendment = "AMD-0001"
+
+[files."shapes/meta/alignment.ttl"]
+level = 3
+sha256 = "fb2e6025e9a4caac38238975f0f28ef0fdec3eb6ba042ef02f4b2585d6c80117"
+amendment = "AMD-0001"
+
+[files."shapes/meta/amendment.ttl"]
+level = 3
+sha256 = "0cf4caeb1283d0694cc29f21153c9dbdeee46335b8764032d9d8066ef0a130d4"
+amendment = "AMD-0001"
+
+[files."shapes/meta/memory.ttl"]
+level = 3
+sha256 = "372638041394c982d20c575e4a57ff8d3dca53dbbd366e87ff6b7a42ceefef5e"
+amendment = "AMD-0001"
+
+[files."shapes/meta/quality.ttl"]
+level = 3
+sha256 = "27d4e74df500f4a8fa4ac03196f69884c9bfa84daa0bb0aa802edee0dda87044"
+amendment = "AMD-0001"
+
+[files."src/ontorepo/__init__.py"]
+level = 2
+sha256 = "4b088c687568696fa6d9a0eb43edb7a785e8d239aedfb7a594ab5ee6850ab52d"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/__main__.py"]
+level = 2
+sha256 = "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/adopt.py"]
+level = 2
+sha256 = "8ffd1d14d785cd2d198f195c550d2da31624a9b5638b89d4a2fdffdfb92fe673"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/amendments.py"]
+level = 2
+sha256 = "233ec905159385124d1b0cfc1af40463ad7da135a4dcb761425ef40b186e0095"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/canonical.py"]
+level = 2
+sha256 = "8e6aa767d43c7b550d6c7414244f520408914d15bed5325c78506c2fe559d164"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/check.py"]
+level = 2
+sha256 = "2a52ef9aff17b0dc86df8a29334095700cdeb0ed0dc5d2ad8aa474ff8e990686"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/cli.py"]
+level = 2
+sha256 = "5460a98fe565ead75916199a6731d583e0c4a167dd2c4e15c80051d06278e443"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/codegen.py"]
+level = 2
+sha256 = "f79a59cd1b904a620328f7fff679bce2d2f05b3eb770db2ab13fe46b03775c04"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/config.py"]
+level = 2
+sha256 = "9e8fbb6b8c9222aa79f000d71dcf01a5b3fecf9f1153db96599c00f5759abd49"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/external.py"]
+level = 2
+sha256 = "8eb46fc0333d6f83722141e28796617bf88a64976d3a2446855f6b611ac9646f"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/fixtures.py"]
+level = 2
+sha256 = "3d26407daa0c9c634f8693390a3af7f505e450f282e3e93234eb85358bc71d31"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/graph.py"]
+level = 2
+sha256 = "d30df0bbd62c0620be5b4620c21a634324fffea480942b1d6425f6dbc13c4d88"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/guard.py"]
+level = 3
+sha256 = "4c847a49257ae208047c259d287d626d11e31448c31f26b21cb3a6c5dbb4c650"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/hooks/__init__.py"]
+level = 3
+sha256 = "9083c90a933caaa059a935ff04f9949997c0d93468b59e4c59e4c22711637f86"
+amendment = "AMD-0001"
+
+[files."src/ontorepo/hooks/__main__.py"]
+level = 3
+sha256 = "74c5a15ad0b974cf178aea86e3a8cd2e4b268cdaf041892378232ac45b6b4fc0"
+amendment = "AMD-0001"
+
+[files."src/ontorepo/hooks/claude.py"]
+level = 3
+sha256 = "c31901b90eb3f882ad1f21e968a225da9e938860c0c694e32c4287b0c6a85e1e"
+amendment = "AMD-0001"
+
+[files."src/ontorepo/hooks/common.py"]
+level = 3
+sha256 = "8c0cceb512ccc4fd703440a37df96709f4c7d6a36da5df491fabdf6ba2869af1"
+amendment = "AMD-0001"
+
+[files."src/ontorepo/hooks/cursor.py"]
+level = 3
+sha256 = "8328a6d8973546958525aed3be8235c5985869a0af509571c49b9b87394d69ae"
+amendment = "AMD-0001"
+
+[files."src/ontorepo/lint.py"]
+level = 2
+sha256 = "287e5352007395a23f16af098495e436e8674e374fff8bce2a0e93a604d0051d"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/lock.py"]
+level = 2
+sha256 = "4dda368c48c4dff9cdd7f30cce1e58492b08bd6fb49bde4442c05787bacfafbc"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/mcp_server.py"]
+level = 2
+sha256 = "506f737d600b78297ed72abf2f4aded9bae632a5c3359f4563528bc9d3ddf04f"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/memory.py"]
+level = 2
+sha256 = "84e5714c9e9f096471cfe653d098650c0a0ea170af08d58e7021b4bd2332906f"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/namespaces.py"]
+level = 2
+sha256 = "3346183a7391be196b6b0587e7a7c46a8d46fe1a9fc6acacd3595d9acd5a6080"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/query.py"]
+level = 2
+sha256 = "763d161bcce588e7af7d255e51acd6a8929ca376ef2b1545202cde7245f2348e"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/report.py"]
+level = 2
+sha256 = "20a25aabd00d8268100f1a485adaf10781e0ff96bfc48248e9d71f6334bca1ee"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/runtime.py"]
+level = 2
+sha256 = "2d732bf29ec40c1a61ef39aaf19f22b1b12cd413bb10b7e4bdf138ef69db100a"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/stats.py"]
+level = 2
+sha256 = "66d277999529019f80b6d83efb2abe615841352c0fc5b4271782f0cdfbb3b294"
+amendment = "AMD-0002"
+
+[files."src/ontorepo/validate.py"]
+level = 2
+sha256 = "b8ad8c57a16802da1aeb39d377f4d2e33a9b9c942bf2a98c8559a0a2539ccfc3"
+amendment = "AMD-0002"

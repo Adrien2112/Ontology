@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [ { "command": "./scripts/onto hook cursor sessionStart", "timeout": 180 } ],
+    "preToolUse": [ { "command": "./scripts/onto hook cursor preToolUse", "timeout": 30, "failClosed": true } ],
+    "beforeShellExecution": [ { "command": "./scripts/onto hook cursor beforeShellExecution", "timeout": 30, "failClosed": true } ],
+    "postToolUse": [ { "command": "./scripts/onto hook cursor postToolUse", "timeout": 60 } ],
+    "stop": [ { "command": "./scripts/onto hook cursor stop", "timeout": 180 } ]
+  }
+}

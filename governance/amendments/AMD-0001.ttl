@@ -1,0 +1,34 @@
+# Amendement AMD-0001 — écrit par `onto amend`, ne pas éditer à la main.
+# Le changement ontologique est permis mais doit rester l'exception.
+@prefix amd: <https://adrien2112.github.io/ontology/amendments/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix repo: <https://adrien2112.github.io/ontology/repo#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+amd:AMD-0001
+    a repo:Amendment ;
+    dcterms:created "2026-10-01T09:08:50+00:00"^^xsd:dateTime ;
+    dcterms:identifier "AMD-0001" ;
+    repo:alternativesConsidered "Aucune ontologie n'existait : le dépôt était vide. Les ontologies externes sont réutilisées telles quelles plutôt que réinventées." ;
+    repo:approvedBy "amorçage — à confirmer par le propriétaire du dépôt (Adrien2112) lors de la revue de la PR" ;
+    repo:author "claude-code (amorçage du dépôt)" ;
+    repo:covers ".claude/settings.json" ,
+        ".cursor/hooks.json" ,
+        ".github/CODEOWNERS" ,
+        ".github/workflows/**" ,
+        ".pre-commit-config.yaml" ,
+        "governance/policy.toml" ,
+        "ontology/alignment/alignment.ttl" ,
+        "ontology/alignment/external.ttl" ,
+        "ontology/data/**" ,
+        "ontology/domain/**" ,
+        "ontology/external/**" ,
+        "ontology/meta/**" ,
+        "ontorepo.toml" ,
+        "shapes/domain/**" ,
+        "shapes/meta/**" ,
+        "src/ontorepo/guard.py" ,
+        "src/ontorepo/hooks/**" ;
+    repo:justification "Amendement fondateur : création de l'ontologie interne (DDD, gouvernance, mémoire, domaine Organisation/Parc/Supervision), de son alignement sur SOSA, PROV-O, ORG, SKOS et DCTERMS, des invariants SHACL et de l'outillage de garde." ;
+    repo:level repo:N3 ;
+    repo:status repo:Applied .
